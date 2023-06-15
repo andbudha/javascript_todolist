@@ -1,6 +1,7 @@
 //element references
 const addTaskForm = document.querySelector('.add');
 const taskList = document.querySelector('.tasks');
+const searchTaskInput = document.querySelector('.search');
 
 //generating new-task template
 const generateTaskTemplate = (taskTitle) => {
@@ -23,13 +24,28 @@ const addNewTask = (event) => {
     }
 }
 
-//delting task from list
+//deleting task from list
 const deleteTaskFromList = (event) => {
     if (event.target.classList.contains('delete')) {
         event.target.parentElement.remove();
     }
 }
 
+//filtering tasks
+const filterTasks = (searchInputValue) => {
+    Array.from(taskList.children)
+        .filter(task => !task.innerText.toLowerCase().includes(searchInputValue))
+        .forEach(task => task.classList.add('filtered'));
+    Array.from(taskList.children)
+        .filter(task => task.innerText.toLowerCase().includes(searchInputValue))
+        .forEach(task => task.classList.remove('filtered'));
+}
+
+const catchSearchInputValue = () => {
+    const searchInputValue = searchTaskInput.search.value.toLowerCase();
+    filterTasks(searchInputValue);
+}
 //event listeners
 addTaskForm.addEventListener('submit', addNewTask);
 taskList.addEventListener('click', deleteTaskFromList);
+searchTaskInput.addEventListener('keyup', catchSearchInputValue);
