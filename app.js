@@ -3,6 +3,23 @@ const addTaskForm = document.querySelector('.add');
 const taskList = document.querySelector('.tasks');
 const searchTaskInput = document.querySelector('.search');
 
+//setting tasks to and getting from local storage
+const setTasksToStorage = (taskTitle) => {
+    const tasks = getTasksFromStorage();
+    tasks.push(taskTitle);
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+}
+
+const getTasksFromStorage = () => {
+    let tasks;
+    if (!localStorage.getItem('tasks')) {
+        tasks = [];
+    } else {
+        tasks = JSON.parse(localStorage.getItem('tasks'));
+    }
+    return tasks;
+}
+
 //generating new-task template
 const generateTaskTemplate = (taskTitle) => {
     const newTask = `
@@ -20,6 +37,7 @@ const addNewTask = (event) => {
     const taskTitle = addTaskForm.add.value;
     if (taskTitle.length) {
         generateTaskTemplate(taskTitle);
+        setTasksToStorage(taskTitle);
         addTaskForm.reset();
     }
 }
