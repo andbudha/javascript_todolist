@@ -3,6 +3,12 @@ const addTaskForm = document.querySelector('.add');
 const taskList = document.querySelector('.tasks');
 const searchTaskInput = document.querySelector('.search');
 
+//displaying tasks from local storage on the list
+const displayTasksOnDOMLoading = () => {
+    const tasks = JSON.parse(localStorage.getItem('tasks'));
+    tasks.forEach(task => generateTaskTemplate(task));
+}
+
 //setting tasks to and getting from local storage
 const setTasksToStorage = (taskTitle) => {
     const tasks = getTasksFromStorage();
@@ -67,3 +73,4 @@ const catchSearchInputValue = () => {
 addTaskForm.addEventListener('submit', addNewTask);
 taskList.addEventListener('click', deleteTaskFromList);
 searchTaskInput.addEventListener('keyup', catchSearchInputValue);
+document.addEventListener('DOMContentLoaded', displayTasksOnDOMLoading);
