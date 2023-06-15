@@ -23,5 +23,13 @@ const addNewTask = (event) => {
     }
 }
 
+//delting task from list
+const deleteTaskFromList = (event) => {
+    if (event.target.classList.contains('delete')) {
+        event.target.parentElement.remove();
+    }
+}
+
 //event listeners
 addTaskForm.addEventListener('submit', addNewTask);
+taskList.addEventListener('click', deleteTaskFromList);
