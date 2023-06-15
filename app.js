@@ -49,9 +49,17 @@ const addNewTask = (event) => {
 }
 
 //deleting task from list
+const deletTaskFromStorage = (taskTitle) => {
+    const tasks = JSON.parse(localStorage.getItem('tasks'));
+    const updatedTaskLIst = tasks.filter(task => task !== taskTitle);
+    localStorage.setItem('tasks', JSON.stringify(updatedTaskLIst));
+
+}
 const deleteTaskFromList = (event) => {
     if (event.target.classList.contains('delete')) {
         event.target.parentElement.remove();
+        const taskTitle = event.target.parentElement.innerText.trim();
+        deletTaskFromStorage(taskTitle);
     }
 }
 
