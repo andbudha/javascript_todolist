@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>JS To Do List</title>
+</head>
+
+<body>
+    <div class="container">
+        <header class="text-center text-light my-4">
+            <h1 class="mb-4">To Do List</h1>
+        </header>
+        <form class="add text-center my-4">
+            <input class="form-control m-auto" type="text" name="add" placeholder="add tasks..." />
+        </form>
+        <ul class="list-group tasks mx-auto">
+            <li class=" text-light list-group-item d-flex justify-content-between align-items-center">
+                <span>be hard-working</span>
+                <i class="far fa-trash-alt delete"></i>
+            </li>
+        </ul>
+        <form class="search my-4">
+            <input class="form-control m-auto" type="text" name="search" placeholder="filter tasks..." />
+        </form>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>

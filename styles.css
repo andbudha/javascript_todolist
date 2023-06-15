@@ -1,0 +1,23 @@
+body {
+    background: #0E2954;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.container {
+    max-width: 400px;
+}
+
+input[type=text],
+input[type=text]:focus {
+    border: none;
+    max-width: 400px;
+}
+
+.tasks li {
+    background: #1F6E8C;
+    margin-top: 2px;
+}
+
+.delete {
+    cursor: pointer;
+}
