@@ -3,10 +3,21 @@ const addTaskForm = document.querySelector('.add');
 const taskList = document.querySelector('.tasks');
 const searchTaskInput = document.querySelector('.search');
 
+//displayng search input upon task-length >= 5;
+const checkTaskListLength = () => {
+    if (JSON.parse(localStorage.getItem('tasks')).length >= 5) {
+        searchTaskInput.classList.remove('hide-search');
+    }
+    if (JSON.parse(localStorage.getItem('tasks')).length < 5) {
+        searchTaskInput.classList.add('hide-search');
+    }
+}
+
 //displaying tasks from local storage on the list
 const displayTasksOnDOMLoading = () => {
     const tasks = JSON.parse(localStorage.getItem('tasks'));
     tasks.forEach(task => generateTaskTemplate(task));
+    checkTaskListLength();
 }
 
 //setting tasks to and getting from local storage
@@ -46,6 +57,7 @@ const addNewTask = (event) => {
         setTasksToStorage(taskTitle);
         addTaskForm.reset();
     }
+    checkTaskListLength();
 }
 
 //deleting task from list
@@ -53,7 +65,7 @@ const deletTaskFromStorage = (taskTitle) => {
     const tasks = JSON.parse(localStorage.getItem('tasks'));
     const updatedTaskLIst = tasks.filter(task => task !== taskTitle);
     localStorage.setItem('tasks', JSON.stringify(updatedTaskLIst));
-
+    checkTaskListLength();
 }
 const deleteTaskFromList = (event) => {
     if (event.target.classList.contains('delete')) {
@@ -77,6 +89,7 @@ const catchSearchInputValue = () => {
     const searchInputValue = searchTaskInput.search.value.toLowerCase();
     filterTasks(searchInputValue);
 }
+
 //event listeners
 addTaskForm.addEventListener('submit', addNewTask);
 taskList.addEventListener('click', deleteTaskFromList);
