@@ -1,26 +1,63 @@
-body {
-    background: #0E2954;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Edu SA Beginner', cursive;
+}
+
+
+.background {
+    background-image: url('./img/todolist1.jpg');
+    height: 100vh;
+    width: 100vw;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    position: relative;
 }
 
 .container {
     max-width: 400px;
     padding-top: 100px;
+    position: absolute;
+    z-index: 3;
+}
+
+h1 {
+    color: #071952;
+    font-weight: 700;
 }
 
 input[type=text],
 input[type=text]:focus {
     border: none;
     max-width: 400px;
+    font-size: 22px;
 }
 
 .tasks li {
-    background: #1F6E8C;
+    background: #0B666A;
     margin-top: 2px;
+    padding: 3px 10px;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.checkbox {
+    height: 20px;
+    width: 20px;
+}
+
+.checkbox {
+    accent-color: #071952;
 }
 
 .delete {
     cursor: pointer;
+    color: #071952;
 }
 
 .filtered {

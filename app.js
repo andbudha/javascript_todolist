@@ -41,6 +41,7 @@ const getTasksFromStorage = () => {
 const generateTaskTemplate = (taskTitle) => {
     const newTask = `
             <li class=" text-light list-group-item d-flex justify-content-between align-items-center">
+            <input type="checkbox" class="checkbox">
                 <span>${taskTitle}</span>
                 <i class="far fa-trash-alt delete"></i>
             </li>
