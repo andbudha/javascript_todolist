@@ -1,50 +1,16 @@
-//element references
-const addTaskForm = document.querySelector('.add');
+//references
+const inputField = document.querySelector('.add');
 const taskList = document.querySelector('.tasks');
-const searchTaskInput = document.querySelector('.search');
 
-//displayng search input upon task-length >= 5;
-const checkTaskListLength = () => {
-    if (JSON.parse(localStorage.getItem('tasks')).length >= 5) {
-        searchTaskInput.classList.remove('hide-search');
-    }
-    if (JSON.parse(localStorage.getItem('tasks')).length < 5) {
-        searchTaskInput.classList.add('hide-search');
-    }
-}
-
-//displaying tasks from local storage on the list
-const displayTasksOnDOMLoading = () => {
-    const tasks = JSON.parse(localStorage.getItem('tasks'));
-    tasks.forEach(task => generateTaskTemplate(task));
-    checkTaskListLength();
-}
-
-//setting tasks to and getting from local storage
-const setTasksToStorage = (taskTitle) => {
-    const tasks = getTasksFromStorage();
-    tasks.push(taskTitle);
-    localStorage.setItem('tasks', JSON.stringify(tasks))
-}
-
-const getTasksFromStorage = () => {
-    let tasks;
-    if (!localStorage.getItem('tasks')) {
-        tasks = [];
-    } else {
-        tasks = JSON.parse(localStorage.getItem('tasks'));
-    }
-    return tasks;
-}
 
 //generating new-task template
-const generateTaskTemplate = (taskTitle) => {
+const generateTaskTemplate = (inputTaskTitle) => {
     const newTask = `
-            <li class=" text-light list-group-item d-flex justify-content-between align-items-center">
-            <input type="checkbox" class="checkbox">
-                <span>${taskTitle}</span>
-                <i class="far fa-trash-alt delete"></i>
-            </li>
+                     <li class="task">
+                        <i class="far fa-check-circle fa-circle"></i>
+                        <p class="task_title">${inputTaskTitle}</p>
+                        <i class="fas fa-trash-alt delete"></i>
+                    </li>
     `;
     taskList.innerHTML += newTask;
 }
@@ -52,47 +18,48 @@ const generateTaskTemplate = (taskTitle) => {
 //adding new task
 const addNewTask = (event) => {
     event.preventDefault();
-    const taskTitle = addTaskForm.add.value;
-    if (taskTitle.length) {
-        generateTaskTemplate(taskTitle);
-        setTasksToStorage(taskTitle);
-        addTaskForm.reset();
+    const inputTaskTitle = inputField.add.value;
+    if (inputTaskTitle.length) {
+        generateTaskTemplate(inputTaskTitle);
+        inputField.reset();
+    } else {
+        alert('Please, add a new task!');
     }
-    checkTaskListLength();
+
+    saveData();
 }
 
-//deleting task from list
-const deletTaskFromStorage = (taskTitle) => {
-    const tasks = JSON.parse(localStorage.getItem('tasks'));
-    const updatedTaskLIst = tasks.filter(task => task !== taskTitle);
-    localStorage.setItem('tasks', JSON.stringify(updatedTaskLIst));
-    checkTaskListLength();
-}
-const deleteTaskFromList = (event) => {
+//task deleting
+const deleteTask = (event) => {
     if (event.target.classList.contains('delete')) {
         event.target.parentElement.remove();
-        const taskTitle = event.target.parentElement.innerText.trim();
-        deletTaskFromStorage(taskTitle);
     }
+    saveData();
 }
 
-//filtering tasks
-const filterTasks = (searchInputValue) => {
-    Array.from(taskList.children)
-        .filter(task => !task.innerText.toLowerCase().includes(searchInputValue))
-        .forEach(task => task.classList.add('filtered'));
-    Array.from(taskList.children)
-        .filter(task => task.innerText.toLowerCase().includes(searchInputValue))
-        .forEach(task => task.classList.remove('filtered'));
+//marking tasks as completed
+const markCompleted = (event) => {
+    if (event.target.classList.contains('fa-check-circle')) {
+        event.target.classList.toggle('fa-circle');
+    }
+    saveData();
 }
 
-const catchSearchInputValue = () => {
-    const searchInputValue = searchTaskInput.search.value.toLowerCase();
-    filterTasks(searchInputValue);
+//saving to local storage
+const saveData = () => {
+    localStorage.setItem('data', taskList.innerHTML);
 }
+
+//displaying the list from the local storage
+const displayList = () => {
+    taskList.innerHTML = localStorage.getItem('data');
+}
+
+displayList();
 
 //event listeners
-addTaskForm.addEventListener('submit', addNewTask);
-taskList.addEventListener('click', deleteTaskFromList);
-searchTaskInput.addEventListener('keyup', catchSearchInputValue);
-document.addEventListener('DOMContentLoaded', displayTasksOnDOMLoading);
+inputField.addEventListener('submit', addNewTask);
+taskList.addEventListener('click', deleteTask);
+taskList.addEventListener('click', markCompleted);
+
+
